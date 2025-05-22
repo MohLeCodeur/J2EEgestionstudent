@@ -20,7 +20,7 @@
   
   .left-panel {
     flex: 1;
-    background: url('https://videos.openai.com/vg-assets/assets%2Ftask_01jv0egtqdf85b07r36yahxkzp%2F1746993233_img_1.webp?st=2025-05-12T04%3A57%3A03Z&se=2025-05-18T05%3A57%3A03Z&sks=b&skt=2025-05-12T04%3A57%3A03Z&ske=2025-05-18T05%3A57%3A03Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=8ebb0df1-a278-4e2e-9c20-f2d373479b3a&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=qN49mna6ndRYKcfTZM4Q%2FvRXMzQnqoZl6OiJsRdU3wo%3D&az=oaivgprodscus') no-repeat center center;
+    background: url('https://videos.openai.com/vg-assets/assets%2Ftask_01jv0egtqdf85b07r36yahxkzp%2F1746993233_img_1.webp?st=2025-05-19T16%3A49%3A42Z&se=2025-05-25T17%3A49%3A42Z&sks=b&skt=2025-05-19T16%3A49%3A42Z&ske=2025-05-25T17%3A49%3A42Z&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skoid=aa5ddad1-c91a-4f0a-9aca-e20682cc8969&skv=2019-02-02&sv=2018-11-09&sr=b&sp=r&spr=https%2Chttp&sig=wK6o87ZgBNdEehj42EuN2ZgmUFTxLKJOnsXOyjljVKs%3D&az=oaivgprodscus') no-repeat center center;
     background-size: cover;
     position: relative;
   }

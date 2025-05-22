@@ -154,4 +154,28 @@ public class StudentDAO {
     }
     return 0;
 }
+    public List<Student> findPaginated(int offset, int limit) {
+    List<Student> list = new ArrayList<>();
+    String sql = "SELECT * FROM etudiant LIMIT ? OFFSET ?";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, limit);
+        ps.setInt(2, offset);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Student s = new Student();
+            s.setId(rs.getInt("id"));
+            s.setNom(rs.getString("nom"));
+            s.setPrenom(rs.getString("prenom"));
+            s.setEmail(rs.getString("email"));
+            s.setAdresse(rs.getString("adresse"));
+            s.setDateNaissance(rs.getDate("date_naissance"));
+            list.add(s);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return list;
+}
+
 }

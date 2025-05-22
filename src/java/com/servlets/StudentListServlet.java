@@ -16,32 +16,42 @@ import java.util.List;
 public class StudentListServlet extends HttpServlet {
     private StudentDAO dao = new StudentDAO();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // Vérifier session
-        if (req.getSession().getAttribute("admin") == null) {
-            resp.sendRedirect("login");
-            return;
-        }
-        
-        // Récupérer le paramètre de recherche
-        String searchKeyword = req.getParameter("search");
-        List<Student> list;
-        int count;
-        
-        if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
-            // Effectuer la recherche si un mot-clé est fourni
-            list = dao.search(searchKeyword);
-            count = list.size(); // Ou utiliser dao.countSearch(searchKeyword) si vous l'implémentez
-            req.setAttribute("search", searchKeyword);
-        } else {
-            // Sinon, récupérer tous les étudiants
-            list = dao.findAll();
-            count = dao.count();
-        }
-        
-        req.setAttribute("students", list);
-        req.setAttribute("count", count);
-        req.getRequestDispatcher("/WEB-INF/pages/studentList.jsp").forward(req, resp);
+@Override
+protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    if (req.getSession().getAttribute("admin") == null) {
+        resp.sendRedirect("login");
+        return;
     }
+
+    String searchKeyword = req.getParameter("search");
+    String pageStr = req.getParameter("page");
+    int page = 1;
+    int recordsPerPage = 10;
+
+    if (pageStr != null && !pageStr.isEmpty()) {
+        page = Integer.parseInt(pageStr);
+    }
+
+    List<Student> list;
+    int count;
+
+    if (searchKeyword != null && !searchKeyword.trim().isEmpty()) {
+        list = dao.search(searchKeyword); // ou faire une pagination ici aussi si tu veux
+        count = dao.countSearch(searchKeyword);
+        req.setAttribute("search", searchKeyword);
+    } else {
+        int offset = (page - 1) * recordsPerPage;
+        list = dao.findPaginated(offset, recordsPerPage);
+        count = dao.count();
+    }
+
+    int totalPages = (int) Math.ceil((double) count / recordsPerPage);
+
+    req.setAttribute("students", list);
+    req.setAttribute("count", count);
+    req.setAttribute("currentPage", page);
+    req.setAttribute("totalPages", totalPages);
+    req.getRequestDispatcher("/WEB-INF/pages/studentList.jsp").forward(req, resp);
+}
+
 }
